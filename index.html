@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Number Counter</title>
+  <style>
+    .number {
+      display: inline-block;
+      margin-right: 20px;
+    }
+  </style>
+</head>
+<body>
+  <div class="number">
+    <span id="number500">500</span>
+    <button onclick="addNumber(500)">+</button>
+    <button onclick="subtractNumber(500)">-</button>
+    <p id="counter500">Darab: 0</p>
+  </div>
+
+  <div class="number">
+    <span id="number1000">1000</span>
+    <button onclick="addNumber(1000)">+</button>
+    <button onclick="subtractNumber(1000)">-</button>
+    <p id="counter1000">Darab: 0</p>
+  </div>
+
+  <div class="number">
+    <span id="number2000">2000</span>
+    <button onclick="addNumber(2000)">+</button>
+    <button onclick="subtractNumber(2000)">-</button>
+    <p id="counter2000">Darab: 0</p>
+  </div>
+
+  <div class="number">
+    <span id="number5000">5000</span>
+    <button onclick="addNumber(5000)">+</button>
+    <button onclick="subtractNumber(5000)">-</button>
+    <p id="counter5000">Darab: 0</p>
+  </div>
+
+  <p id="total">Ossz: 0</p>
+
+  <script>
+    let total = 0;
+    let counters = {
+      500: 0,
+      1000: 0,
+      2000: 0,
+      5000: 0
+    };
+
+    function addNumber(number) {
+      total += number;
+      counters[number]++;
+      updateTotals();
+      updateCounters();
+    }
+
+    function subtractNumber(number) {
+      total -= number;
+      counters[number]--;
+      updateTotals();
+      updateCounters();
+    }
+
+    function updateTotals() {
+      const totalElement = document.getElementById('total');
+
+      totalElement.textContent = 'Ossz: ' + total;
+    }
+
+    function updateCounters() {
+      for (const number in counters) {
+        const counterElement = document.getElementById('counter' + number);
+        counterElement.textContent = 'Darab: ' + counters[number];
+      }
+    }
+  </script>
+</body>
+</html>
