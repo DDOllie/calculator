@@ -14,21 +14,21 @@
     <span id="number500">500</span>
     <button onclick="addNumber(500)">+</button>
     <button onclick="subtractNumber(500)">-</button>
-    <p id="counter500">Darab: 0</p>
+    <p id="counter500">Clicked: 0</p>
   </div>
 
   <div class="number">
     <span id="number1000">1000</span>
     <button onclick="addNumber(1000)">+</button>
     <button onclick="subtractNumber(1000)">-</button>
-    <p id="counter1000">Darab: 0</p>
+    <p id="counter1000">Clicked: 0</p>
   </div>
 
   <div class="number">
     <span id="number2000">2000</span>
     <button onclick="addNumber(2000)">+</button>
     <button onclick="subtractNumber(2000)">-</button>
-    <p id="counter2000">Darab: 0</p>
+    <p id="counter2000">Clicked: 0</p>
   </div>
 
   <div class="number">
@@ -49,11 +49,23 @@
       5000: 0
     };
 
+    // Load data from local storage on page load
+    window.onload = function() {
+      if (localStorage.getItem('numberCounterData')) {
+        const savedData = JSON.parse(localStorage.getItem('numberCounterData'));
+        total = savedData.total;
+        counters = savedData.counters;
+        updateTotals();
+        updateCounters();
+      }
+    };
+
     function addNumber(number) {
       total += number;
       counters[number]++;
       updateTotals();
       updateCounters();
+      saveDataToLocalStorage();
     }
 
     function subtractNumber(number) {
@@ -61,12 +73,13 @@
       counters[number]--;
       updateTotals();
       updateCounters();
+      saveDataToLocalStorage();
     }
 
     function updateTotals() {
       const totalElement = document.getElementById('total');
 
-      totalElement.textContent = 'Ossz: ' + total;
+      totalElement.textContent = 'Osssz: ' + total;
     }
 
     function updateCounters() {
@@ -74,6 +87,14 @@
         const counterElement = document.getElementById('counter' + number);
         counterElement.textContent = 'Darab: ' + counters[number];
       }
+    }
+
+    function saveDataToLocalStorage() {
+      const data = {
+        total: total,
+        counters: counters
+      };
+      localStorage.setItem('numberCounterData', JSON.stringify(data));
     }
   </script>
 </body>
